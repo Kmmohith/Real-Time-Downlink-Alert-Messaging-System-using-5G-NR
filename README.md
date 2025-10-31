@@ -2,7 +2,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/MATLAB-R2024a-orange?logo=mathworks&logoColor=white" />
-  <img src="https://img.shields.io/badge/Modulation-16QAM%20|%2064QAM-blue" />
+  <img src="https://img.shields.io/badge/Modulation-16QAM-blue" />
   <img src="https://img.shields.io/badge/Technology-5G%20NR-green" />
   <img src="https://img.shields.io/badge/System-OFDM%20Downlink-purple" />
 </p>
@@ -10,17 +10,35 @@
 ---
 
 ### 🚀 Overview
-This project implements a **5G NR-based downlink alert messaging system** that demonstrates **real-time message transmission and recovery** using **OFDM** and **QAM** modulation in MATLAB.  
+This project implements a **5G NR-based downlink alert messaging system** that demonstrates **real-time message transmission and recovery** using **OFDM** and **16-QAM modulation** in MATLAB.  
 It showcases how modern wireless systems enable **reliable digital communication** for **smart city and disaster management** applications.
 
 ---
 
 ### 🧩 System Architecture
-Message → Binary Mapping → 16-QAM Modulation
-→ OFDM (IFFT + Cyclic Prefix)
-→ AWGN Channel (SNR 0–25 dB)
-→ FFT Demodulation + QAM Demapping
-→ Message Recovery
+
+📨 Input Message
+│
+▼
+🔡 Binary Mapping (ASCII → Bits)
+│
+▼
+🌀 16-QAM Modulation (4 bits/symbol)
+│
+▼
+📶 OFDM Framing (64-point IFFT + Cyclic Prefix)
+│
+▼
+🌫️ AWGN Channel (Adjustable SNR: 0–25 dB)
+│
+▼
+🔍 FFT Demodulation + CP Removal
+│
+▼
+🎯 16-QAM Demapping (Symbols → Bits)
+│
+▼
+💬 Message Recovery (Bits → Text Output)
 
 
 ---
@@ -28,57 +46,72 @@ Message → Binary Mapping → 16-QAM Modulation
 ### ⚙️ Key Features
 ✅ Real-time message transmission & decoding  
 ✅ OFDM modulation with 64-point IFFT and cyclic prefix  
-✅ 16-QAM / 64-QAM signal mapping  
+✅ 16-QAM signal mapping (4 bits/symbol)  
 ✅ AWGN channel with adjustable SNR (0–25 dB)  
-✅ GUI for live downlink visualization  
+✅ MATLAB GUI for live downlink visualization  
 ✅ BER vs SNR performance analysis  
 ✅ Frequency-domain and constellation visualization  
 
 ---
 
-### 💻 Demo Preview
+### 💻 GUI Preview
 <p align="center">
-  <img src="assets/screenshots/gui_overview.png" alt="GUI Screenshot" width="80%" />
+  <img src="assets/gui_overview.png" alt="GUI Screenshot" width="80%"/>
   <br/>
-  <em>MATLAB GUI showing real-time waveform, FFT magnitude, and constellation plots</em>
+  <em>MATLAB GUI – Real-Time Downlink Alert Messaging System</em>
 </p>
 
 ---
 
-### 📊 Example Simulation Results
-| Parameter | Value / Observation |
-|------------|--------------------|
-| FFT Size | 64 |
-| Cyclic Prefix | 16 samples |
-| Modulation | 16-QAM (Downlink) |
-| Channel | AWGN |
-| SNR Range | 0–25 dB |
-| BER @ 10 dB | ≈ 0 |
-| Message | “Earthquake Detected – Evacuate!” |
-
+### 📨 Transmission Result
 <p align="center">
-  <img src="assets/screenshots/constellation_plot.png" width="45%"/>
-  <img src="assets/screenshots/fft_plot.png" width="45%"/>
+  <img src="assets/message_popup.png" alt="Transmission Result" width="50%"/>
+  <br/>
+  <em>Transmission Result – Sent & Recovered Message at 20 dB SNR</em>
+</p>
+
+---
+
+### 📶 Downlink Signal Analysis
+<p align="center">
+  <img src="assets/downlink_plots.png" alt="Downlink Waveform, FFT, Constellation" width="90%"/>
+  <br/>
+  <em>Transmitted & Received OFDM Waveforms, FFT Magnitude, and TX vs RX Constellation</em>
+</p>
+
+---
+
+### 🧬 MIMO-OFDM Performance (Extended Work)
+<p align="center">
+  <img src="assets/mimo_ber_plot.png" alt="MIMO OFDM BER Plot" width="70%"/>
+  <br/>
+  <em>BER vs SNR for 2×2 MIMO-OFDM with Alamouti STBC</em>
+</p>
+
+---
+
+### 📊 BER Comparison (QPSK, 16-QAM, OTFS, MIMO)
+<p align="center">
+  <img src="assets/ber_comparison_plot.png" alt="BER Comparison" width="70%"/>
+  <br/>
+  <em>BER Comparison between QPSK, 16-QAM, OTFS, and 2×2 MIMO Schemes</em>
 </p>
 
 ---
 
 ### 🧠 Conceptual Summary
 > The system models a simplified **5G NR downlink physical layer**.  
-> The transmitter encodes and modulates an alert message, sends it through a simulated **AWGN channel**, and the receiver demodulates and reconstructs the original text.  
-> As SNR increases, constellation points cluster tightly and BER approaches zero, validating reliable communication.
+> The transmitter encodes and modulates an alert message, transmits it through an **AWGN channel**, and the receiver demodulates and reconstructs the original text.  
+> As SNR increases, constellation points cluster tightly and BER approaches zero, confirming robust communication performance.
 
 ---
 
 ### 🧪 How to Run
+
 In MATLAB Command Window:
 ```matlab
 >> dcs_gui_demo
-
 Then:
-
-Adjust the SNR slider to vary channel noise (0–25 dB).
-
-Click “Run Downlink Demo” to visualize the full transmission chain.
-
-Observe waveform, FFT, constellation, and recovered message outputs.
+1. Adjust the SNR slider to vary channel noise (0–25 dB).
+2. Click “Run Downlink Demo” to visualize the full transmission chain.
+3. Observe waveform, FFT, constellation, and recovered message outputs.
